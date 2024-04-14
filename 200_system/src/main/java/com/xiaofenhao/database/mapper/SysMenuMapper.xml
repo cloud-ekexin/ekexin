@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofenhao.database.dao.SysMenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.xiaofenhao.database.bean.SysMenu">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="parentId" column="fk_parent_id" jdbcType="INTEGER"/>
+            <result property="code" column="code" jdbcType="CHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="parameter" column="parameter" jdbcType="VARCHAR"/>
+            <result property="showFlag" column="show_flag" jdbcType="TINYINT"/>
+            <result property="sequence" column="sequence" jdbcType="INTEGER"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="deletedTime" column="deleted_time" jdbcType="TIMESTAMP"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="createdBy" column="created_by" jdbcType="INTEGER"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,fk_parent_id,code,
+        name,description,url,
+        parameter,show_flag,sequence,
+        icon,remark,deleted_time,
+        created_time,created_by,updated_time,
+        updated_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_menu
+        WHERE id = #{id} 
+    </select>
+
+    <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_menu
+        <where>
+                <if test="id != null">#{id},</if>
+                <if test="parentId != null">#{parentId},</if>
+                <if test="code != null">#{code},</if>
+                <if test="name != null">#{name},</if>
+                <if test="description != null">#{description},</if>
+                <if test="url != null">#{url},</if>
+                <if test="parameter != null">#{parameter},</if>
+                <if test="showFlag != null">#{showFlag},</if>
+                <if test="sequence != null">#{sequence},</if>
+                <if test="icon != null">#{icon},</if>
+                <if test="remark != null">#{remark},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </where>
+        <if test="sortString != null">ORDER BY #{sortString}, id</if>
+    </select>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.SysMenu" useGeneratedKeys="true">
+        INSERT INTO sys_menu
+        ( id,fk_parent_id,code
+        ,name,description,url
+        ,parameter,show_flag,sequence
+        ,icon,remark,deleted_time
+        ,created_time,created_by,updated_time
+        ,updated_by
+        )
+        VALUES
+        (#{id},#{parentId},#{code}
+        ,#{name},#{description},#{url}
+        ,#{parameter},#{showFlag},#{sequence}
+        ,#{icon},#{remark},#{deletedTime}
+        ,#{createdTime},#{createdBy},#{updatedTime}
+        ,#{updatedBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.SysMenu" useGeneratedKeys="true">
+        INSERT INTO sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="parentId != null">fk_parent_id,</if>
+                <if test="code != null">code,</if>
+                <if test="name != null">name,</if>
+                <if test="description != null">description,</if>
+                <if test="url != null">url,</if>
+                <if test="parameter != null">parameter,</if>
+                <if test="showFlag != null">show_flag,</if>
+                <if test="sequence != null">sequence,</if>
+                <if test="icon != null">icon,</if>
+                <if test="remark != null">remark,</if>
+                <if test="deletedTime != null">deleted_time,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="createdBy != null">created_by,</if>
+                <if test="updatedTime != null">updated_time,</if>
+                <if test="updatedBy != null">updated_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="parentId != null">#{parentId},</if>
+                <if test="code != null">#{code},</if>
+                <if test="name != null">#{name},</if>
+                <if test="description != null">#{description},</if>
+                <if test="url != null">#{url},</if>
+                <if test="parameter != null">#{parameter},</if>
+                <if test="showFlag != null">#{showFlag},</if>
+                <if test="sequence != null">#{sequence},</if>
+                <if test="icon != null">#{icon},</if>
+                <if test="remark != null">#{remark},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaofenhao.database.bean.SysMenu">
+        UPDATE sys_menu
+        <set>
+                <if test="parentId != null">fk_parent_id = #{parentId},</if>
+                <if test="code != null">code = #{code},</if>
+                <if test="name != null">name = #{name},</if>
+                <if test="description != null">description = #{description},</if>
+                <if test="url != null">url = #{url},</if>
+                <if test="parameter != null">parameter = #{parameter},</if>
+                <if test="showFlag != null">show_flag = #{showFlag},</if>
+                <if test="sequence != null">sequence = #{sequence},</if>
+                <if test="icon != null">icon = #{icon},</if>
+                <if test="remark != null">remark = #{remark},</if>
+                <if test="deletedTime != null">deleted_time = #{deletedTime},</if>
+                <if test="createdTime != null">created_time = #{createdTime},</if>
+                <if test="createdBy != null">created_by = #{createdBy},</if>
+                <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+                <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+        </set>
+        WHERE id = #{id} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xiaofenhao.database.bean.SysMenu">
+        UPDATE sys_menu
+        SET 
+            fk_parent_id = #{parentId},
+            code = #{code},
+            name = #{name},
+            description = #{description},
+            url = #{url},
+            parameter = #{parameter},
+            show_flag = #{showFlag},
+            sequence = #{sequence},
+            icon = #{icon},
+            remark = #{remark},
+            deleted_time = #{deletedTime},
+            created_time = #{createdTime},
+            created_by = #{createdBy},
+            updated_time = #{updatedTime},
+            updated_by = #{updatedBy}
+        WHERE id = #{id} 
+    </update>
+</mapper>

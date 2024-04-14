@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofenhao.database.dao.InvReceiptDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.xiaofenhao.database.bean.InvReceiptDetail">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="productId" column="fk_product_id" jdbcType="BIGINT"/>
+            <result property="companyId" column="fk_company_id" jdbcType="INTEGER"/>
+            <result property="receiptType" column="receipt_type" jdbcType="TINYINT"/>
+            <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+            <result property="productDate" column="product_date" jdbcType="TIMESTAMP"/>
+            <result property="validDate" column="valid_date" jdbcType="TIMESTAMP"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="quantity" column="quantity" jdbcType="DECIMAL"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="deletedTime" column="deleted_time" jdbcType="TIMESTAMP"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="createdBy" column="created_by" jdbcType="INTEGER"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,fk_product_id,fk_company_id,
+        receipt_type,batch_number,product_date,
+        valid_date,price,quantity,
+        amount,status,deleted_time,
+        created_time,created_by,updated_time,
+        updated_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_receipt_detail
+        WHERE id = #{id} 
+    </select>
+
+    <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_receipt_detail
+        <where>
+                <if test="id != null">#{id},</if>
+                <if test="productId != null">#{productId},</if>
+                <if test="companyId != null">#{companyId},</if>
+                <if test="receiptType != null">#{receiptType},</if>
+                <if test="batchNumber != null">#{batchNumber},</if>
+                <if test="productDate != null">#{productDate},</if>
+                <if test="validDate != null">#{validDate},</if>
+                <if test="price != null">#{price},</if>
+                <if test="quantity != null">#{quantity},</if>
+                <if test="amount != null">#{amount},</if>
+                <if test="status != null">#{status},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </where>
+        <if test="sortString != null">ORDER BY #{sortString}, id</if>
+    </select>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvReceiptDetail" useGeneratedKeys="true">
+        INSERT INTO inv_receipt_detail
+        ( id,fk_product_id,fk_company_id
+        ,receipt_type,batch_number,product_date
+        ,valid_date,price,quantity
+        ,amount,status,deleted_time
+        ,created_time,created_by,updated_time
+        ,updated_by
+        )
+        VALUES
+        (#{id},#{productId},#{companyId}
+        ,#{receiptType},#{batchNumber},#{productDate}
+        ,#{validDate},#{price},#{quantity}
+        ,#{amount},#{status},#{deletedTime}
+        ,#{createdTime},#{createdBy},#{updatedTime}
+        ,#{updatedBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvReceiptDetail" useGeneratedKeys="true">
+        INSERT INTO inv_receipt_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="productId != null">fk_product_id,</if>
+                <if test="companyId != null">fk_company_id,</if>
+                <if test="receiptType != null">receipt_type,</if>
+                <if test="batchNumber != null">batch_number,</if>
+                <if test="productDate != null">product_date,</if>
+                <if test="validDate != null">valid_date,</if>
+                <if test="price != null">price,</if>
+                <if test="quantity != null">quantity,</if>
+                <if test="amount != null">amount,</if>
+                <if test="status != null">status,</if>
+                <if test="deletedTime != null">deleted_time,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="createdBy != null">created_by,</if>
+                <if test="updatedTime != null">updated_time,</if>
+                <if test="updatedBy != null">updated_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="productId != null">#{productId},</if>
+                <if test="companyId != null">#{companyId},</if>
+                <if test="receiptType != null">#{receiptType},</if>
+                <if test="batchNumber != null">#{batchNumber},</if>
+                <if test="productDate != null">#{productDate},</if>
+                <if test="validDate != null">#{validDate},</if>
+                <if test="price != null">#{price},</if>
+                <if test="quantity != null">#{quantity},</if>
+                <if test="amount != null">#{amount},</if>
+                <if test="status != null">#{status},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaofenhao.database.bean.InvReceiptDetail">
+        UPDATE inv_receipt_detail
+        <set>
+                <if test="productId != null">fk_product_id = #{productId},</if>
+                <if test="companyId != null">fk_company_id = #{companyId},</if>
+                <if test="receiptType != null">receipt_type = #{receiptType},</if>
+                <if test="batchNumber != null">batch_number = #{batchNumber},</if>
+                <if test="productDate != null">product_date = #{productDate},</if>
+                <if test="validDate != null">valid_date = #{validDate},</if>
+                <if test="price != null">price = #{price},</if>
+                <if test="quantity != null">quantity = #{quantity},</if>
+                <if test="amount != null">amount = #{amount},</if>
+                <if test="status != null">status = #{status},</if>
+                <if test="deletedTime != null">deleted_time = #{deletedTime},</if>
+                <if test="createdTime != null">created_time = #{createdTime},</if>
+                <if test="createdBy != null">created_by = #{createdBy},</if>
+                <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+                <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+        </set>
+        WHERE id = #{id} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xiaofenhao.database.bean.InvReceiptDetail">
+        UPDATE inv_receipt_detail
+        SET 
+            fk_product_id = #{productId},
+            fk_company_id = #{companyId},
+            receipt_type = #{receiptType},
+            batch_number = #{batchNumber},
+            product_date = #{productDate},
+            valid_date = #{validDate},
+            price = #{price},
+            quantity = #{quantity},
+            amount = #{amount},
+            status = #{status},
+            deleted_time = #{deletedTime},
+            created_time = #{createdTime},
+            created_by = #{createdBy},
+            updated_time = #{updatedTime},
+            updated_by = #{updatedBy}
+        WHERE id = #{id} 
+    </update>
+</mapper>

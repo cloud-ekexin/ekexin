@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaofenhao.dao.InvCompanyDao">
+    <!-- 获取公司信息列表 -->
+    <select id="getInvCompanyList" resultType="com.xiaofenhao.bean.InvCompanyResponseInfo" parameterType="java.util.Map">
+        SELECT `id` AS `id`,
+        `code` AS `code`,
+        `name` AS `name`,
+        CASE `company_type` WHEN 1 THEN '供应商' WHEN 2 THEN '经销商' WHEN 3 THEN '个人' END AS `companyTypeName`,
+        `address` AS `address`,
+        `link_man` AS `linkMan`,
+        `link_man_phone` AS `linkManPhone`,
+        `remark` AS `remark`
+        FROM `inv_company`
+        WHERE `deleted_time` IS NULL
+        <if test="codeLike != null">AND `code` LIKE CONCAT('%', #{codeLike}, '%') ESCAPE '/'</if>
+        <if test="nameLike != null">
+            AND (`name` LIKE CONCAT('%', #{nameLike}, '%') ESCAPE '/'
+            OR `pinyin_name` LIKE CONCAT('%', #{nameLike}, '%') ESCAPE '/'
+            OR `alias_name` LIKE CONCAT('%', #{nameLike}, '%') ESCAPE '/')
+        </if>
+        <if test="addressLike != null">AND `address` LIKE CONCAT('%', #{addressLike}, '%') ESCAPE '/'</if>
+        <if test="linkManLike != null">AND `link_man` LIKE CONCAT('%', #{linkManLike}, '%') ESCAPE '/'</if>
+        <if test="linkManPhoneLike != null">AND `link_man_phone` LIKE CONCAT('%', #{linkManPhoneLike}, '%') ESCAPE '/'</if>
+        ORDER BY <if test="sortString != null">#{sortString},</if>id
+    </select>
+</mapper>

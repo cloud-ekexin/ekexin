@@ -1,0 +1,41 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: system
+  profiles:
+    active: druid
+  # 文件上传
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 100GB
+      # 设置总上传的文件大小
+      max-request-size: 100GB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+
+# MyBatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.xiaofenhao.**.bean
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:com/xiaofenhao/**/mapper/*.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis-config.xml
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql
+
+# 日志配置
+logging:
+  level:
+    com.xiaofenhao: debug
+    org.springframework: warn

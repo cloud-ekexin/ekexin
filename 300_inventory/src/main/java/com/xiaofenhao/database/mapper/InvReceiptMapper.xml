@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofenhao.database.dao.InvReceiptMapper">
+
+    <resultMap id="BaseResultMap" type="com.xiaofenhao.database.bean.InvReceipt">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="code" column="code" jdbcType="CHAR"/>
+            <result property="receiptType" column="receipt_type" jdbcType="TINYINT"/>
+            <result property="companyId" column="fk_company_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="deletedTime" column="deleted_time" jdbcType="TIMESTAMP"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="createdBy" column="created_by" jdbcType="INTEGER"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,code,receipt_type,
+        fk_company_id,status,deleted_time,
+        created_time,created_by,updated_time,
+        updated_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_receipt
+        WHERE id = #{id} 
+    </select>
+
+    <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_receipt
+        <where>
+                <if test="id != null">#{id},</if>
+                <if test="code != null">#{code},</if>
+                <if test="receiptType != null">#{receiptType},</if>
+                <if test="companyId != null">#{companyId},</if>
+                <if test="status != null">#{status},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </where>
+        <if test="sortString != null">ORDER BY #{sortString}, id</if>
+    </select>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvReceipt" useGeneratedKeys="true">
+        INSERT INTO inv_receipt
+        ( id,code,receipt_type
+        ,fk_company_id,status,deleted_time
+        ,created_time,created_by,updated_time
+        ,updated_by
+        )
+        VALUES
+        (#{id},#{code},#{receiptType}
+        ,#{companyId},#{status},#{deletedTime}
+        ,#{createdTime},#{createdBy},#{updatedTime}
+        ,#{updatedBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvReceipt" useGeneratedKeys="true">
+        INSERT INTO inv_receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="code != null">code,</if>
+                <if test="receiptType != null">receipt_type,</if>
+                <if test="companyId != null">fk_company_id,</if>
+                <if test="status != null">status,</if>
+                <if test="deletedTime != null">deleted_time,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="createdBy != null">created_by,</if>
+                <if test="updatedTime != null">updated_time,</if>
+                <if test="updatedBy != null">updated_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="code != null">#{code},</if>
+                <if test="receiptType != null">#{receiptType},</if>
+                <if test="companyId != null">#{companyId},</if>
+                <if test="status != null">#{status},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaofenhao.database.bean.InvReceipt">
+        UPDATE inv_receipt
+        <set>
+                <if test="code != null">code = #{code},</if>
+                <if test="receiptType != null">receipt_type = #{receiptType},</if>
+                <if test="companyId != null">fk_company_id = #{companyId},</if>
+                <if test="status != null">status = #{status},</if>
+                <if test="deletedTime != null">deleted_time = #{deletedTime},</if>
+                <if test="createdTime != null">created_time = #{createdTime},</if>
+                <if test="createdBy != null">created_by = #{createdBy},</if>
+                <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+                <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+        </set>
+        WHERE id = #{id} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xiaofenhao.database.bean.InvReceipt">
+        UPDATE inv_receipt
+        SET 
+            code = #{code},
+            receipt_type = #{receiptType},
+            fk_company_id = #{companyId},
+            status = #{status},
+            deleted_time = #{deletedTime},
+            created_time = #{createdTime},
+            created_by = #{createdBy},
+            updated_time = #{updatedTime},
+            updated_by = #{updatedBy}
+        WHERE id = #{id} 
+    </update>
+</mapper>

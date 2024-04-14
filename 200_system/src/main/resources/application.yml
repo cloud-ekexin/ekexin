@@ -1,0 +1,15 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: system
+  datasource:
+    name: datasource
+    url: jdbc:mysql://192.168.168.188:3310/xfh?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: Server@PC.22I9
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath*:com/xiaofenhao/**/mapper/*.xml

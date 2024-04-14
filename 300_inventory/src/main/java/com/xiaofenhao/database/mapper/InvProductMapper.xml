@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofenhao.database.dao.InvProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.xiaofenhao.database.bean.InvProduct">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="code" column="code" jdbcType="CHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="pinyinName" column="pinyin_name" jdbcType="VARCHAR"/>
+            <result property="aliasName" column="alias_name" jdbcType="VARCHAR"/>
+            <result property="barCode" column="bar_code" jdbcType="VARCHAR"/>
+            <result property="specification" column="specification" jdbcType="VARCHAR"/>
+            <result property="model" column="model" jdbcType="VARCHAR"/>
+            <result property="registerNumber" column="register_number" jdbcType="VARCHAR"/>
+            <result property="qaTime" column="qa_time" jdbcType="INTEGER"/>
+            <result property="classCode" column="class_code" jdbcType="VARCHAR"/>
+            <result property="brandCode" column="brand_code" jdbcType="VARCHAR"/>
+            <result property="defaultPrice" column="default_price" jdbcType="DECIMAL"/>
+            <result property="basePackName" column="base_pack_name" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="deletedTime" column="deleted_time" jdbcType="TIMESTAMP"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="createdBy" column="created_by" jdbcType="INTEGER"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,code,name,
+        pinyin_name,alias_name,bar_code,
+        specification,model,register_number,
+        qa_time,class_code,brand_code,
+        default_price,base_pack_name,remark,
+        deleted_time,created_time,created_by,
+        updated_time,updated_by
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_product
+        WHERE id = #{id} 
+    </select>
+
+    <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM inv_product
+        <where>
+                <if test="id != null">#{id},</if>
+                <if test="code != null">#{code},</if>
+                <if test="name != null">#{name},</if>
+                <if test="pinyinName != null">#{pinyinName},</if>
+                <if test="aliasName != null">#{aliasName},</if>
+                <if test="barCode != null">#{barCode},</if>
+                <if test="specification != null">#{specification},</if>
+                <if test="model != null">#{model},</if>
+                <if test="registerNumber != null">#{registerNumber},</if>
+                <if test="qaTime != null">#{qaTime},</if>
+                <if test="classCode != null">#{classCode},</if>
+                <if test="brandCode != null">#{brandCode},</if>
+                <if test="defaultPrice != null">#{defaultPrice},</if>
+                <if test="basePackName != null">#{basePackName},</if>
+                <if test="remark != null">#{remark},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </where>
+        <if test="sortString != null">ORDER BY #{sortString}, id</if>
+    </select>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvProduct" useGeneratedKeys="true">
+        INSERT INTO inv_product
+        ( id,code,name
+        ,pinyin_name,alias_name,bar_code
+        ,specification,model,register_number
+        ,qa_time,class_code,brand_code
+        ,default_price,base_pack_name,remark
+        ,deleted_time,created_time,created_by
+        ,updated_time,updated_by
+        )
+        VALUES
+        (#{id},#{code},#{name}
+        ,#{pinyinName},#{aliasName},#{barCode}
+        ,#{specification},#{model},#{registerNumber}
+        ,#{qaTime},#{classCode},#{brandCode}
+        ,#{defaultPrice},#{basePackName},#{remark}
+        ,#{deletedTime},#{createdTime},#{createdBy}
+        ,#{updatedTime},#{updatedBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xiaofenhao.database.bean.InvProduct" useGeneratedKeys="true">
+        INSERT INTO inv_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="code != null">code,</if>
+                <if test="name != null">name,</if>
+                <if test="pinyinName != null">pinyin_name,</if>
+                <if test="aliasName != null">alias_name,</if>
+                <if test="barCode != null">bar_code,</if>
+                <if test="specification != null">specification,</if>
+                <if test="model != null">model,</if>
+                <if test="registerNumber != null">register_number,</if>
+                <if test="qaTime != null">qa_time,</if>
+                <if test="classCode != null">class_code,</if>
+                <if test="brandCode != null">brand_code,</if>
+                <if test="defaultPrice != null">default_price,</if>
+                <if test="basePackName != null">base_pack_name,</if>
+                <if test="remark != null">remark,</if>
+                <if test="deletedTime != null">deleted_time,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="createdBy != null">created_by,</if>
+                <if test="updatedTime != null">updated_time,</if>
+                <if test="updatedBy != null">updated_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id},</if>
+                <if test="code != null">#{code},</if>
+                <if test="name != null">#{name},</if>
+                <if test="pinyinName != null">#{pinyinName},</if>
+                <if test="aliasName != null">#{aliasName},</if>
+                <if test="barCode != null">#{barCode},</if>
+                <if test="specification != null">#{specification},</if>
+                <if test="model != null">#{model},</if>
+                <if test="registerNumber != null">#{registerNumber},</if>
+                <if test="qaTime != null">#{qaTime},</if>
+                <if test="classCode != null">#{classCode},</if>
+                <if test="brandCode != null">#{brandCode},</if>
+                <if test="defaultPrice != null">#{defaultPrice},</if>
+                <if test="basePackName != null">#{basePackName},</if>
+                <if test="remark != null">#{remark},</if>
+                <if test="deletedTime != null">#{deletedTime},</if>
+                <if test="createdTime != null">#{createdTime},</if>
+                <if test="createdBy != null">#{createdBy},</if>
+                <if test="updatedTime != null">#{updatedTime},</if>
+                <if test="updatedBy != null">#{updatedBy},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaofenhao.database.bean.InvProduct">
+        UPDATE inv_product
+        <set>
+                <if test="code != null">code = #{code},</if>
+                <if test="name != null">name = #{name},</if>
+                <if test="pinyinName != null">pinyin_name = #{pinyinName},</if>
+                <if test="aliasName != null">alias_name = #{aliasName},</if>
+                <if test="barCode != null">bar_code = #{barCode},</if>
+                <if test="specification != null">specification = #{specification},</if>
+                <if test="model != null">model = #{model},</if>
+                <if test="registerNumber != null">register_number = #{registerNumber},</if>
+                <if test="qaTime != null">qa_time = #{qaTime},</if>
+                <if test="classCode != null">class_code = #{classCode},</if>
+                <if test="brandCode != null">brand_code = #{brandCode},</if>
+                <if test="defaultPrice != null">default_price = #{defaultPrice},</if>
+                <if test="basePackName != null">base_pack_name = #{basePackName},</if>
+                <if test="remark != null">remark = #{remark},</if>
+                <if test="deletedTime != null">deleted_time = #{deletedTime},</if>
+                <if test="createdTime != null">created_time = #{createdTime},</if>
+                <if test="createdBy != null">created_by = #{createdBy},</if>
+                <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+                <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+        </set>
+        WHERE id = #{id} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xiaofenhao.database.bean.InvProduct">
+        UPDATE inv_product
+        SET 
+            code = #{code},
+            name = #{name},
+            pinyin_name = #{pinyinName},
+            alias_name = #{aliasName},
+            bar_code = #{barCode},
+            specification = #{specification},
+            model = #{model},
+            register_number = #{registerNumber},
+            qa_time = #{qaTime},
+            class_code = #{classCode},
+            brand_code = #{brandCode},
+            default_price = #{defaultPrice},
+            base_pack_name = #{basePackName},
+            remark = #{remark},
+            deleted_time = #{deletedTime},
+            created_time = #{createdTime},
+            created_by = #{createdBy},
+            updated_time = #{updatedTime},
+            updated_by = #{updatedBy}
+        WHERE id = #{id} 
+    </update>
+</mapper>
